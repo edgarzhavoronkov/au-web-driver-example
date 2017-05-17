@@ -22,6 +22,11 @@ public class CamCatalogPageTest {
 
     @Before
     public void setUp() throws Exception {
+        String osname = System.getProperty("os.name");
+        // if runs on my laptop
+        if (!osname.contains("Windows")) {
+            System.setProperty("webdriver.chrome.driver", "/home/edgar/Development/chromedriver");
+        }
         driver = new ChromeDriver();
         page = new CamCatalogPage(driver);
     }
@@ -29,16 +34,16 @@ public class CamCatalogPageTest {
     @Test
     public void testSimple() throws Exception {
         page.setBrand("Sony");
-//        page.setPriceRange(10000, 50000);
-//
-//        List<CamSnippet> cards = page.getResults();
-//
-//        assertFalse(cards.isEmpty());
-//
-//        for (CamSnippet card : cards) {
-//            assertEquals("Sony", card.getBrand());
-//            assertTrue(card.getPrice() >= 10000 && card.getPrice() <= 50000);
-//        }
+        page.setPriceRange(10000, 50000);
+
+        List<CamSnippet> cards = page.getResults();
+
+        assertFalse(cards.isEmpty());
+
+        for (CamSnippet card : cards) {
+            assertEquals("Sony", card.getBrand());
+            assertTrue(card.getPrice() >= 10000 && card.getPrice() <= 50000);
+        }
     }
 
     @After

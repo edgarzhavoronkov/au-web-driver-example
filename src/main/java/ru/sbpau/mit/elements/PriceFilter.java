@@ -10,16 +10,19 @@ import org.openqa.selenium.WebDriver;
 public class PriceFilter {
     private final WebDriver driver;
 
-    private final By fromLocator = By.xpath("//*[@id=\"glf-pricefrom-var\"]");
-    private final By toLocator = By.xpath("//*[@id=\"glf-priceto-var\"]");
+    private final By minPriceLocator = By.xpath("//*[@id=\"glf-pricefrom-var\"]");
+    private final By maxPriceLocator = By.xpath("//*[@id=\"glf-priceto-var\"]");
 
     public PriceFilter(WebDriver driver) {
         this.driver = driver;
     }
 
 
-    public void setPriceRange(Integer from, Integer to) {
-        driver.findElement(fromLocator).sendKeys(from.toString());
-        driver.findElement(toLocator).sendKeys(to.toString());
+    public void setMinPrice(Integer minPrice) {
+        driver.findElement(minPriceLocator).sendKeys(minPrice.toString());
+    }
+
+    public void setMaxPrice(Integer maxPrice) {
+        driver.findElement(maxPriceLocator).sendKeys(maxPrice.toString());
     }
 }
