@@ -22,11 +22,6 @@ public class CamCatalogPageTest {
 
     @Before
     public void setUp() throws Exception {
-        String osname = System.getProperty("os.name");
-        // if runs on my laptop
-        if (!osname.contains("Windows")) {
-            System.setProperty("webdriver.chrome.driver", "/home/edgar/Development/chromedriver");
-        }
         driver = new ChromeDriver();
         page = new CamCatalogPage(driver);
     }
