@@ -24,6 +24,7 @@ public class CamCatalogPage {
     private static final String pageURL = "https://market.yandex.ru/catalog/54761/list?local-offers-first=0&deliveryincluded=0&onstock=1";
     private static final By snippetsListLocator = By.xpath("/html/body/div[1]/div[4]/div[2]/div[1]/div[2]/div[1]");
     private static final By resultsCounterLocator = By.className("n-filter-panel-counter");
+    private static final By moarSnippetsLocator = By.xpath("/html/body/div[1]/div[4]/div[2]/div[1]/div[2]/div[4]/div[1]/a");
 
 
     public CamCatalogPage(WebDriver webDriver) {
@@ -49,6 +50,9 @@ public class CamCatalogPage {
     public List<CamSnippet> getResults() {
         waitForUpdate();
         List<CamSnippet> snippets = new ArrayList<>();
+        while (driver.findElement(moarSnippetsLocator).isDisplayed()) {
+            driver.findElement(moarSnippetsLocator).click();
+        }
         for (WebElement elem : driver.findElements(By.className("n-snippet-card"))) {
             String name = elem.findElement(By.className("snippet-card__header-link")).getText().split("\\s")[0];
             Double price = Double.parseDouble(elem.findElement(By.className("snippet-card__price")).getText().replaceAll("\\D+", ""));
